@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo%20Vargas/OneDrive/Documentos/8%20SEMESTRE/ANALITICA/P3/mlruns/0/23ca0cd900ee4f75bbe0d013a05a7d7e/artifacts
+end_time: 1733061734355
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 23ca0cd900ee4f75bbe0d013a05a7d7e
+run_name: rogue-quail-218
+run_uuid: 23ca0cd900ee4f75bbe0d013a05a7d7e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733061734198
+status: 4
+tags: []
+user_id: Jeronimo Vargas

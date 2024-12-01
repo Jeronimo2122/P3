@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo%20Vargas/OneDrive/Documentos/8%20SEMESTRE/ANALITICA/P3/mlruns/0/b5c9c83533414b279d5f9f81d2aa6edf/artifacts
+end_time: 1733061671993
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b5c9c83533414b279d5f9f81d2aa6edf
+run_name: burly-rat-307
+run_uuid: b5c9c83533414b279d5f9f81d2aa6edf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733061671837
+status: 4
+tags: []
+user_id: Jeronimo Vargas

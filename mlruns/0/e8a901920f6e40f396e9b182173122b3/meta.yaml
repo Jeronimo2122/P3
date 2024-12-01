@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo%20Vargas/OneDrive/Documentos/8%20SEMESTRE/ANALITICA/P3/mlruns/0/e8a901920f6e40f396e9b182173122b3/artifacts
+end_time: 1733062205171
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e8a901920f6e40f396e9b182173122b3
+run_name: trusting-hog-396
+run_uuid: e8a901920f6e40f396e9b182173122b3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733062192562
+status: 3
+tags: []
+user_id: Jeronimo Vargas

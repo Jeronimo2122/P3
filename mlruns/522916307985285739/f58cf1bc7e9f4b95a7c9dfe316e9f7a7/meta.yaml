@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo Vargas/OneDrive/Documentos/8 SEMESTRE/ANALITICA/P3/mlruns/522916307985285739/f58cf1bc7e9f4b95a7c9dfe316e9f7a7/artifacts
+end_time: 1733063168589
+entry_point_name: ''
+experiment_id: '522916307985285739'
+lifecycle_stage: active
+run_id: f58cf1bc7e9f4b95a7c9dfe316e9f7a7
+run_name: gentle-hog-467
+run_uuid: f58cf1bc7e9f4b95a7c9dfe316e9f7a7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733063158149
+status: 3
+tags: []
+user_id: Jeronimo Vargas

@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo Vargas/OneDrive/Documentos/8 SEMESTRE/ANALITICA/P3/mlruns/522916307985285739/c75f427f516b4beba9931f7ef6ae0f29/artifacts
+end_time: 1733063168595
+entry_point_name: ''
+experiment_id: '522916307985285739'
+lifecycle_stage: active
+run_id: c75f427f516b4beba9931f7ef6ae0f29
+run_name: amusing-lamb-495
+run_uuid: c75f427f516b4beba9931f7ef6ae0f29
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733063133512
+status: 3
+tags: []
+user_id: Jeronimo Vargas
