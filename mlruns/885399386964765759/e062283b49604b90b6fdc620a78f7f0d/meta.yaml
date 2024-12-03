@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo Vargas/OneDrive/Documentos/8 SEMESTRE/ANALITICA/P3/mlruns/885399386964765759/e062283b49604b90b6fdc620a78f7f0d/artifacts
+end_time: 1733236833599
+entry_point_name: ''
+experiment_id: '885399386964765759'
+lifecycle_stage: active
+run_id: e062283b49604b90b6fdc620a78f7f0d
+run_name: receptive-bug-146
+run_uuid: e062283b49604b90b6fdc620a78f7f0d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733236833284
+status: 4
+tags: []
+user_id: Jeronimo Vargas

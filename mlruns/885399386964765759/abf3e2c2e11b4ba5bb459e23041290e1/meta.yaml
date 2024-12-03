@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo Vargas/OneDrive/Documentos/8 SEMESTRE/ANALITICA/P3/mlruns/885399386964765759/abf3e2c2e11b4ba5bb459e23041290e1/artifacts
+end_time: 1733236904634
+entry_point_name: ''
+experiment_id: '885399386964765759'
+lifecycle_stage: active
+run_id: abf3e2c2e11b4ba5bb459e23041290e1
+run_name: masked-whale-68
+run_uuid: abf3e2c2e11b4ba5bb459e23041290e1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733236888022
+status: 3
+tags: []
+user_id: Jeronimo Vargas

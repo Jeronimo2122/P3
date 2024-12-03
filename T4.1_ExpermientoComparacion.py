@@ -10,7 +10,7 @@ import pandas as pd
 df = pd.read_csv("DF_FINAL.csv")
 
 # Definir variables independientes (X) y dependiente (y)
-X = df.drop(columns=['punt_global'])  # Excluir la columna de puntaje global
+X = df.drop(columns=['punt_global', 'punt_ingles', 'punt_matematicas', 'punt_sociales_ciudadanas', 'punt_c_naturales', 'punt_lectura_critica'])  # Variables dependientes
 y = df['punt_global']  # Variable objetivo
 
 scaler = StandardScaler()

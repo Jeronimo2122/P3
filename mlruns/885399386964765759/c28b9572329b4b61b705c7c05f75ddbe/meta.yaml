@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/Jeronimo Vargas/OneDrive/Documentos/8 SEMESTRE/ANALITICA/P3/mlruns/885399386964765759/c28b9572329b4b61b705c7c05f75ddbe/artifacts
+end_time: 1733236664504
+entry_point_name: ''
+experiment_id: '885399386964765759'
+lifecycle_stage: active
+run_id: c28b9572329b4b61b705c7c05f75ddbe
+run_name: awesome-crab-292
+run_uuid: c28b9572329b4b61b705c7c05f75ddbe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733236663813
+status: 4
+tags: []
+user_id: Jeronimo Vargas
