@@ -196,7 +196,8 @@ app.layout = html.Div([
                 style={
                     "display": "flex",
                     "flexDirection": "row",
-                    "flexWrap": "wrap"
+                    "flexWrap": "wrap",
+                    "gap": "20px"  # Espacio entre los elementos
                 }
             ),
             dcc.Graph(id='output-checklist')
@@ -214,14 +215,14 @@ app.layout = html.Div([
                style={"fontFamily": "Arial", "fontSize": "16px", "lineHeight": "1.6", "textAlign": "justify", "margin": "20px"}),
         html.Div([
             html.Div([
-                html.Label("Estudio en colegio bilingüe:"),
+                html.Label("Estudio en colegio bilingue:"),
                 dcc.Dropdown(
                     id='cole_bilingue',
                     options=[
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -233,7 +234,7 @@ app.layout = html.Div([
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -245,7 +246,7 @@ app.layout = html.Div([
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -290,7 +291,7 @@ app.layout = html.Div([
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -302,7 +303,7 @@ app.layout = html.Div([
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -314,7 +315,7 @@ app.layout = html.Div([
                         {'label': 'Sí', 'value': 1},
                         {'label': 'No', 'value': 0}
                     ],
-                    value=0
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
@@ -391,14 +392,38 @@ app.layout = html.Div([
                         {'label': 'Unica', 'value': 'Unica'},
 
                     ],
-                    value=0
+                    value='Unica'
+                )
+            ], style={"margin": "10px", "flex": "1"}),
+
+            html.Div([
+                html.Label("El estudiante es:"),
+                dcc.Dropdown(
+                    id='genero_estudiante',
+                    options=[
+                        {'label': 'Hombre', 'value': 1},
+                        {'label': 'Mujer', 'value': 0}
+                    ],
+                    value=1
+                )
+            ], style={"margin": "10px", "flex": "1"}),
+
+            html.Div([
+                html.Label("El estudiante es colombiano:"),
+                dcc.Dropdown(
+                    id='nacionalidad',
+                    options=[
+                        {'label': 'Sí', 'value': 1},
+                        {'label': 'No', 'value': 0}
+                    ],
+                    value=1
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
             html.Div([
                 html.Label("El estrato del estudiante es:"),
                 dcc.Dropdown(
-                    id='jornada_matutina_nocturna',
+                    id='estrato',
                     options=[
                         {'label': '1', 'value': 1},
                         {'label': '2', 'value': 2},
@@ -409,18 +434,40 @@ app.layout = html.Div([
                         {'label': 'Sin estrato', 'value': 0}
 
                     ],
-                    value=0
+                    value=3
                 )
             ], style={"margin": "10px", "flex": "1"}),
 
+            html.Div([
+                html.Label("Desempeño del estudiante en ingles:"),
+                dcc.Dropdown(
+                    id='desempeno_ingles',
+                    options=[
+                        {'label': 'A-', 'value': 'A-'},
+                        {'label': 'A1', 'value': 'A1'},
+                        {'label': 'A2', 'value': 'A2'},
+                        {'label': 'B+', 'value': 'B+'},
+                        {'label': 'B1', 'value': 'B1'}
+                    ],
+                    value='A2'
+                )
+            ], style={"margin": "10px", "flex": "1"}),
 
         ], style={
             "display": "flex",
             "flexDirection": "row",
             "flexWrap": "wrap",
-            "justifyContent": "space-around"
+            "justifyContent": "space-around",
+            "gap": "20px"  # Espacio entre los elementos
         }),
-    ])
+
+        html.Div([
+            html.H2(id='output-prediccion', style={"textAlign": "center"})
+        ], style={"textAlign": "center"})
+    ], style={"border": "2px solid #026ab0",  # Borde azul
+        "padding": "10px",  # Espaciado interno
+        "borderRadius": "10px"  # Bordes redondeados
+    })
 ])
 
 # Callback para actualizar la gráfica de la competencia seleccionada
@@ -519,6 +566,187 @@ def update_output(value):
     )
 
     return fig
+
+# Callback para predecir el puntaje total en la prueba Saber 11
+@app.callback(
+    Output('output-prediccion', 'children'),
+    Input('cole_bilingue', 'value'),
+    Input('colegio_oficial', 'value'),
+    Input('sede_principal', 'value'),
+    Input('privado_libertad', 'value'),
+    Input('num_personas_hogar', 'value'),
+    Input('tienen_carro', 'value'),
+    Input('tienen_computador', 'value'),
+    Input('tiene_internet', 'value'),
+    Input('area_urbana', 'value'),
+    Input('calendario_a', 'value'),
+    Input('caracter-no-aplica', 'value'),
+    Input('colegio-tecnico', 'value'),
+    Input('colegio_tecnico_academico', 'value'),
+    Input('genero', 'value'),
+    Input('jornada_matutina_nocturna', 'value'),
+    Input('genero_estudiante', 'value'),
+    Input('nacionalidad', 'value'),
+    Input('estrato', 'value'),
+    Input('desempeno_ingles', 'value')
+)
+def predict_score(cole_bilingue, colegio_oficial, sede_principal, privado_libertad, 
+                  num_personas_hogar, tienen_carro, tienen_computador, tiene_internet, 
+                  area_urbana, calendario_a, caracter_no_aplica, colegio_tecnico, 
+                  colegio_tecnico_academico, genero, jornada_matutina_nocturna, 
+                  genero_estudiante, nacionalidad, estrato, desempeno_ingles):
+    datos = []
+    datos.append(cole_bilingue)
+    datos.append(colegio_oficial)
+    datos.append(sede_principal)
+    datos.append(privado_libertad)
+    datos.append(num_personas_hogar)
+    datos.append(tienen_carro)
+    datos.append(tienen_computador)
+    datos.append(tiene_internet)
+    datos.append(area_urbana)
+    datos.append(calendario_a)
+    datos.append(caracter_no_aplica)
+    datos.append(colegio_tecnico)
+    datos.append(colegio_tecnico_academico)
+    
+    if genero == 'Masculino':
+        datos.append(1)
+        datos.append(0)
+    elif genero == 'Mixto':
+        datos.append(0)
+        datos.append(1)
+    else:
+        datos.append(0)
+        datos.append(0)
+
+    if jornada_matutina_nocturna == 'Matutina':
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif jornada_matutina_nocturna == 'Nocturna':
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif jornada_matutina_nocturna == 'Sabatina':
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+    elif jornada_matutina_nocturna == 'Tarde':
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+    elif jornada_matutina_nocturna == 'Unica':
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+    else:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    
+    datos.append(genero_estudiante)
+    datos.append(nacionalidad)
+    
+    if estrato == 1:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif estrato == 2:
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif estrato == 3:
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif estrato == 4:
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif estrato == 5:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+    elif estrato == 6:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+    elif estrato == 0:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+    
+    if desempeno_ingles == 'A-':
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif desempeno_ingles == 'A1':
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+    elif desempeno_ingles == 'A2':
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+    elif desempeno_ingles == 'B+':
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+    elif desempeno_ingles == 'B1':
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+    
+    datos = np.array(datos).reshape(1, -1)
+    datos = scaler.transform(datos)
+    puntaje = model.predict(datos)
+
+    resultado = html.P(" El puntaje pronosticado es: " + str(puntaje[0][0]))
+    return resultado
 
 # Ejecutar la aplicación
 if __name__ == '__main__':
