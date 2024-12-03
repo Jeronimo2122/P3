@@ -9,9 +9,6 @@ import psycopg2
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 
 # Configuración de la conexión a la base de datos
@@ -191,6 +188,8 @@ app.layout = html.Div([
                     {'label': 'Estudio en jornada de la tarde', 'value': 'cole_jornada_tarde'},
                     {'label': 'Estudio en jornada unica', 'value': 'cole_jornada_unica'},
                     {'label': 'Estudio en jornada de sabado', 'value': 'cole_jornada_sabatina'},
+                    {'label': 'Cantidad de personas en el hogar', 'value': 'fami_personashogar'},
+
                 ],
                 value=['cole_bilingue', 'fami_tieneinternet', 'fami_tienecomputador', 'cole_jornada_unica'],
                 style={
@@ -740,6 +739,12 @@ def predict_score(cole_bilingue, colegio_oficial, sede_principal, privado_libert
         datos.append(0)
         datos.append(0)
         datos.append(1)
+    else:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
     
     datos = np.array(datos).reshape(1, -1)
     datos = scaler.transform(datos)
