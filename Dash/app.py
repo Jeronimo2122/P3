@@ -262,7 +262,7 @@ app.layout = html.Div([
             ], style={"margin": "10px", "flex": "1"}),
 
             html.Div([
-                html.Label("Cuantas personas viven en su hogar?:"),
+                html.Label("¿Cuantas personas viven en su hogar?:"),
                 dcc.Input(
                     id='num_personas_hogar',
                     type='number',
@@ -331,36 +331,14 @@ app.layout = html.Div([
             ], style={"margin": "10px", "flex": "1"}),
 
             html.Div([
-                html.Label("Colegio caracter no aplica:"),
+                html.Label("¿De qué caracter es el colegio?:"),
                 dcc.Dropdown(
-                    id='caracter-no-aplica',
+                    id='caracter',
                     options=[
-                        {'label': 'Sí', 'value': 1},
-                        {'label': 'No', 'value': 0}
-                    ],
-                    value=0
-                )
-            ], style={"margin": "10px", "flex": "1"}),
-
-            html.Div([
-                html.Label("El colegio es caracter tecnico:"),
-                dcc.Dropdown(
-                    id='colegio-tecnico',
-                    options=[
-                        {'label': 'Sí', 'value': 1},
-                        {'label': 'No', 'value': 0}
-                    ],
-                    value=0
-                )
-            ], style={"margin": "10px", "flex": "1"}),
-
-            html.Div([
-                html.Label("El colegio es caracter tecnico/academico:"),
-                dcc.Dropdown(
-                    id='colegio_tecnico_academico',
-                    options=[
-                        {'label': 'Sí', 'value': 1},
-                        {'label': 'No', 'value': 0}
+                        {'label': 'Tecnico', 'value': 'Tecnico'},
+                        {'label': 'Academico', 'value': 'Academico'},
+                        {'label': 'Tecnico/Academico', 'value': 'Tecnico/Academico'},
+                        {'label': 'No aplica', 'value': 'No aplica'}
                     ],
                     value=0
                 )
@@ -457,7 +435,7 @@ app.layout = html.Div([
             "flexDirection": "row",
             "flexWrap": "wrap",
             "justifyContent": "space-around",
-            "gap": "20px"  # Espacio entre los elementos
+            "gap": "20px",  # Espacio entre los elementos
         }),
 
         html.Div([
@@ -579,9 +557,7 @@ def update_output(value):
     Input('tiene_internet', 'value'),
     Input('area_urbana', 'value'),
     Input('calendario_a', 'value'),
-    Input('caracter-no-aplica', 'value'),
-    Input('colegio-tecnico', 'value'),
-    Input('colegio_tecnico_academico', 'value'),
+    Input('caracter', 'value'),
     Input('genero', 'value'),
     Input('jornada_matutina_nocturna', 'value'),
     Input('genero_estudiante', 'value'),
@@ -591,8 +567,7 @@ def update_output(value):
 )
 def predict_score(cole_bilingue, colegio_oficial, sede_principal, privado_libertad, 
                   num_personas_hogar, tienen_carro, tienen_computador, tiene_internet, 
-                  area_urbana, calendario_a, caracter_no_aplica, colegio_tecnico, 
-                  colegio_tecnico_academico, genero, jornada_matutina_nocturna, 
+                  area_urbana, calendario_a, caracter, genero, jornada_matutina_nocturna, 
                   genero_estudiante, nacionalidad, estrato, desempeno_ingles):
     datos = []
     datos.append(cole_bilingue)
@@ -605,9 +580,23 @@ def predict_score(cole_bilingue, colegio_oficial, sede_principal, privado_libert
     datos.append(tiene_internet)
     datos.append(area_urbana)
     datos.append(calendario_a)
-    datos.append(caracter_no_aplica)
-    datos.append(colegio_tecnico)
-    datos.append(colegio_tecnico_academico)
+    
+    if caracter == 'No aplica':
+        datos.append(1)
+        datos.append(0)
+        datos.append(0)
+    elif caracter == 'Tecnico':
+        datos.append(0)
+        datos.append(1)
+        datos.append(0)
+    elif caracter == 'Tecnivo/Academico':
+        datos.append(0)
+        datos.append(0)
+        datos.append(1)
+    else:
+        datos.append(0)
+        datos.append(0)
+        datos.append(0)
     
     if genero == 'Masculino':
         datos.append(1)
